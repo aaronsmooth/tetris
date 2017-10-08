@@ -34,6 +34,10 @@ public class PiecePreviewPanel extends JPanel implements Observer {
    */
   private static final int PIXELSIZE = 20;
   /**
+   * Piece preview panel title
+   */
+  private static final String PREVIEWTITLE = "Preview of the Next Piece";
+  /**
    * The next piece for the board that is being previewed.
    */
   private Piece my_piece;

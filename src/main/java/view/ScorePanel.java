@@ -31,7 +31,7 @@ public class ScorePanel extends JPanel implements Observer {
    * to be cleared before the next level.
    */
   private static final String NEXTLEVEL = "Level increase occurs after 10 lines are cleared." +
-      " Lines cleared count: ";
+      "Lines cleared count: ";
   /**
    * The initial number of lines that must be cleared before a level increase.
    */

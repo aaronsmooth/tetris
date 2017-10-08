@@ -16,15 +16,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
-
+import java.awt.Toolkit;
 
 /**
  * This class creates the GUI for a Tetris game.
@@ -144,20 +146,40 @@ public class TetrisGUI extends JFrame implements Observer {
   public void start() {
     compileMenu();
     final JLabel controls = new JLabel(CONTROLS);
-    setPreferredSize(new Dimension((EXTRAROWS * my_board.getWidth() * PIXELSIZE) + 
-        PIXELSIZE, (my_board.getHeight() * PIXELSIZE) + PIXELSIZE * EXTRAROWS + PIXELSIZE));
+    
+    
+    
+    //setPreferredSize(new Dimension((my_piece_preview.getWidth() + my_stats.getWidth() + my_board.getWidth()) * PIXELSIZE,
+	//(my_board.getHeight() * PIXELSIZE) + PIXELSIZE * EXTRAROWS + PIXELSIZE));
+    
+    //Center the board on the screen
+    
+    
     this.setFocusable(true);
     my_current_game.setVisible(true);
     add(my_menu, BorderLayout.NORTH);
     addKeyListener(new TetrisKeyListener());
     add(controls, BorderLayout.SOUTH);
-    add(my_stats, BorderLayout.WEST);
-    add(my_piece_preview, BorderLayout.EAST);
+    JPanel westPanel = new JPanel();
+    westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+    westPanel.add(my_stats);
+    westPanel.add(my_piece_preview);
+    add(westPanel, BorderLayout.WEST);
     add(my_current_game, BorderLayout.CENTER);
+    
+  //Control the sizing of the JFrame
+    setPreferredSize(new Dimension((my_board.getWidth() * PIXELSIZE * EXTRAROWS) + 
+        PIXELSIZE, (my_board.getHeight() * PIXELSIZE) + PIXELSIZE * EXTRAROWS + PIXELSIZE));
+    
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setLocation(dim.width/2-(EXTRAROWS * PIXELSIZE * my_board.getWidth()/2), 
+    		dim.height/2-(PIXELSIZE * my_board.getHeight()/2));
+    
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     
     setResizable(false);
+    //Allow the board to become visible
     setVisible(true);
     JOptionPane.showMessageDialog(null, CONTROLS);
     my_timer.start();
